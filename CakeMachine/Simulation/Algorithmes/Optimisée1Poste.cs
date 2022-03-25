@@ -9,7 +9,7 @@ namespace CakeMachine.Simulation.Algorithmes
     internal class Optimisée1Poste : Algorithme
     {
         /// <inheritdoc />
-        public override bool SupportsAsync => true;
+        public override bool SupportsAsync => false;
 
         /// <inheritdoc />
         public override async IAsyncEnumerable<GâteauEmballé> ProduireAsync(Usine usine,

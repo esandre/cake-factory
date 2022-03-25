@@ -9,10 +9,10 @@ namespace CakeMachine.Simulation.Algorithmes
     internal class FourRempliSansRebut : Algorithme
     {
         /// <inheritdoc />
-        public override bool SupportsSync => true;
+        public override bool SupportsSync => false;
 
         /// <inheritdoc />
-        public override bool SupportsAsync => true;
+        public override bool SupportsAsync => false;
 
         /// <inheritdoc />
         public override IEnumerable<GâteauEmballé> Produire(Usine usine, CancellationToken token)

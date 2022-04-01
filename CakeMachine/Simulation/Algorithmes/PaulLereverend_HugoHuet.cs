@@ -15,9 +15,9 @@ namespace CakeMachine.Simulation.Algorithmes
         /// <inheritdoc />
         public override void ConfigurerUsine(IConfigurationUsine builder)
         {
-            builder.NombrePréparateurs = 10;
-            builder.NombreFours = 6;
-            builder.NombreEmballeuses = 15;
+            builder.NombrePréparateurs = 15;
+            builder.NombreFours = 13;
+            builder.NombreEmballeuses = 7;
         }
 
         private class OrdreProduction

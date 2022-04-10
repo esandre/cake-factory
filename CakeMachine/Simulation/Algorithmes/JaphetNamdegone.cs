@@ -15,8 +15,8 @@ namespace CakeMachine.Simulation.Algorithmes
         /// <inheritdoc />
         public override void ConfigurerUsine(IConfigurationUsine builder)
         {
-            builder.NombrePréparateurs = 10;
-            builder.NombreFours = 10;
+            builder.NombrePréparateurs = 5;
+            builder.NombreFours = 15;
             builder.NombreEmballeuses = 15;
         }
 
@@ -41,23 +41,18 @@ namespace CakeMachine.Simulation.Algorithmes
             {
                 while (!_token.IsCancellationRequested)
                 {
-                    IAsyncEnumerable<GâteauCuit> gâteauxCuits = ProduireEtCuireParBains(_usine.OrganisationUsine.ParamètresCuisson.NombrePlaces, 6);
+                    var gâteauxCuits = ProduireEtCuireParBains(_usine.OrganisationUsine.ParamètresCuisson.NombrePlaces, 6);
 
                     var tâchesEmballage = new List<Task<GâteauEmballé>>(
                         _usine.OrganisationUsine.ParamètresCuisson.NombrePlaces * _usine.OrganisationUsine.NombreFours
                     );
 
 
-                    //await foreach (var gâteauCuit in gâteauxCuits.WithCancellation(_token))
-                    //    tâchesEmballage.Add(_emballeuses.Next.EmballerAsync(gâteauCuit));
-                    await foreach (var gâteaucuit in gâteauxCuits.WithCancellation(_token))
-                        tâchesEmballage.Add(_emballeuses.Next.EmballerAsync(gâteaucuit));
-                    // tâchesEmballage.AsParallel()
-                    //  .Append(_emballeuses.Next.EmballerAsync(gâteaucuit));
-                    //var gâteauxEmballés = gâteauxCuits.AsParallel().Select(_emballeuses.Next.EmballerAsync);
+                    await foreach (var gâteauCuit in gâteauxCuits.WithCancellation(_token))
+                        tâchesEmballage.Add(_emballeuses.Next.EmballerAsync(gâteauCuit));
 
 
-
+                    
 
                     await foreach (var gâteauEmballé in tâchesEmballage.EnumerateCompleted().WithCancellation(_token))
                         yield return gâteauEmballé;
@@ -119,7 +114,6 @@ namespace CakeMachine.Simulation.Algorithmes
                     _token.ThrowIfCancellationRequested();
 
                     var gateau = await préparatrice.PréparerAsync(_usine.StockInfiniPlats.First());
-
                     if (gateau.EstConforme)
                     {
                         gâteauxPrêts!.Add(gateau);

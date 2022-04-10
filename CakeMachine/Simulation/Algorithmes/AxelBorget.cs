@@ -87,7 +87,7 @@ namespace CakeMachine.Simulation.Algorithmes
                 async Task TakeNextAndSpawnChild(uint depth)
                 {
                     _token.ThrowIfCancellationRequested();
-                    // ReSharper disable once LoopVariableIsNeverChangedInsideLoop
+
                     while (depth >= totalAPréparer + gâteauxRatés)
                     {
                         _token.ThrowIfCancellationRequested();

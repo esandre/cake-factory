@@ -5,7 +5,7 @@ namespace CakeMachine.Fabrication.ContexteProduction
 {
     internal class UsineBuilder : IConfigurationUsine
     {
-        private const ushort MultiplicateurTemps = 1;
+        private const ushort MultiplicateurTemps = 1000;
         private ParamètresUsine _paramètres;
         private readonly ThreadSafeRandomNumberGenerator _rng = new ();
 
